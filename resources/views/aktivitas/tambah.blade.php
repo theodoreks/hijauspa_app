@@ -35,6 +35,15 @@
                 <input type="text" name="aktivitas" id="aktivitas" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500" required>
             </div>
 
+            <!-- Status -->
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                <select name="status" id="status" class="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500" required>
+                    <option value="belum">Belum</option>
+                    <option value="selesai">Selesai</option>
+                </select>
+            </div>
+
             <!-- Tombol Simpan dan Batal -->
             <div class="flex justify-end space-x-4 mt-6">
                 <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">

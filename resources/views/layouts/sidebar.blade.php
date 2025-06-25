@@ -83,12 +83,12 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('mingguan.index') }}" class="flex items-center hover:text-lime-500">
+            <a href="{{ route('aktivitas.mingguan.index') }}" class="flex items-center hover:text-lime-500">
               <i class="fas fa-calendar-week mr-2"></i> Mingguan
             </a>
           </li>
           <li>
-            <a href="{{ route('bulanan.index') }}" class="flex items-center hover:text-lime-500">
+            <a href="{{ route('aktivitas.bulanan.index') }}" class="flex items-center hover:text-lime-500">
               <i class="fas fa-calendar-alt mr-2"></i> Bulanan
             </a>
           </li>

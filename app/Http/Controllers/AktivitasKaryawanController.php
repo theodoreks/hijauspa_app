@@ -39,7 +39,7 @@ class AktivitasKaryawanController extends Controller
     public function edit($id)
     {
         $aktivitas = AktivitasKaryawan::findOrFail($id);
-        return view('aktivitas.edit', compact('aktivitas'));
+        return view('aktivitas.editharian', compact('aktivitas'));
     }
 
     // Simpan perubahan

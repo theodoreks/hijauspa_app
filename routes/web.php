@@ -11,6 +11,8 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\MingguanController;
 use App\Http\Controllers\BulananController;
+use App\Http\Controllers\AktivitasMingguanController;
+use App\Http\Controllers\AktivitasBulananController;
 
 // Login & Logout
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -63,6 +65,27 @@ Route::get('/aktivitas/{id}/edit', [AktivitasKaryawanController::class, 'edit'])
 Route::put('/aktivitas/{id}', [AktivitasKaryawanController::class, 'update'])->name('aktivitas.update');
 Route::delete('/aktivitas/{id}', [AktivitasKaryawanController::class, 'destroy'])->name('aktivitas.destroy');
 
+// ROUTE AKTIVITAS MINGGUAN
+Route::prefix('aktivitas')->group(function () {
+    Route::get('/mingguan', [AktivitasMingguanController::class, 'index'])->name('aktivitas.mingguan.index');
+    Route::get('/tambahmingguan', [AktivitasMingguanController::class, 'create'])->name('aktivitas.mingguan.create');
+    Route::post('/mingguan', [AktivitasMingguanController::class, 'store'])->name('aktivitas.mingguan.store');
+    Route::get('/editmingguan/{id}', [AktivitasMingguanController::class, 'edit'])->name('aktivitas.mingguan.edit');
+    Route::put('/mingguan/{id}', [AktivitasMingguanController::class, 'update'])->name('aktivitas.mingguan.update');
+    Route::delete('/mingguan/{id}', [AktivitasMingguanController::class, 'destroy'])->name('aktivitas.mingguan.destroy');
+});
+
+// ROUTE AKTIVITAS BULANAN
+Route::prefix('aktivitas')->group(function () {
+    Route::get('/bulanan', [AktivitasBulananController::class, 'index'])->name('aktivitas.bulanan.index');
+    Route::get('/tambahbulanan', [AktivitasBulananController::class, 'create'])->name('aktivitas.bulanan.create');
+    Route::post('/bulanan', [AktivitasBulananController::class, 'store'])->name('aktivitas.bulanan.store');
+    Route::get('/editbulanan/{id}', [AktivitasBulananController::class, 'edit'])->name('aktivitas.bulanan.edit');
+    Route::put('/bulanan/{id}', [AktivitasBulananController::class, 'update'])->name('aktivitas.bulanan.update');
+    Route::delete('/bulanan/{id}', [AktivitasBulananController::class, 'destroy'])->name('aktivitas.bulanan.destroy');
+});
+
+
 // ROUTE BOKING
 Route::get('/boking', [BokingControllers::class, 'index'])->name('boking.index');
 Route::get('/boking/selesai', [BokingControllers::class, 'selesai'])->name('boking.selesai');
@@ -73,11 +96,6 @@ Route::get('/inventory', [LaporanController::class, 'selesai'])->name('laporan.i
 
 // ROUTE PROFIL
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
-
-// ROUTE AKTIVITAS MINGGUAN
-Route::get('/mingguan', [MingguanController::class, 'index'])->name('mingguan.index');
-// ROUTE AKTIVITAS MINGGUAN
-Route::get('/bulanan', [BulananController::class, 'index'])->name('bulanan.index');
 
 /////////////////////////////////////////////
 
