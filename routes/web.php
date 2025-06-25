@@ -1,7 +1,220 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventKegiatanController;
+use App\Http\Controllers\AbsensiKaryawanController;
+use App\Http\Controllers\AktivitasKaryawanController;
+use App\Http\Controllers\PaketController;
+use App\Http\Controllers\BokingControllers;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\MingguanController;
+use App\Http\Controllers\BulananController;
 
-Route::get('/', function () {
-    return view('welcome');
+// Login & Logout
+Route::get('/', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Register
+Route::get('/register', [AuthController::class, 'registerForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+// Beranda setelah login
+Route::get('/beranda', function () {
+    return view('beranda.beranda'); // Ganti dengan view yang sesuai
+})->name('beranda.beranda');
+
+Route::get('/berandakaryawan', function () {
+    return view('berandakaryawan.karyawan'); // Ganti dengan view yang sesuai
+})->name('berandakaryawan.karyawan');
+
+// Untuk semua fitur CRUD Event Kegiatan
+Route::get('/event', [EventKegiatanController::class, 'index'])->name('event.index');
+Route::get('/event/tambah', [EventKegiatanController::class, 'create'])->name('event.tambah');
+Route::post('/event', [EventKegiatanController::class, 'store'])->name('event.store');
+Route::get('/event/edit/{id}', [EventKegiatanController::class, 'edit'])->name('event.edit');
+Route::put('/event/update/{id}', [EventKegiatanController::class, 'update'])->name('event.update');
+Route::delete('/event/hapus/{id}', [EventKegiatanController::class, 'destroy'])->name('event.hapus');
+
+
+// Untuk semua fitur CRUD Absensi Karyawan
+Route::get('/absensi', [AbsensiKaryawanController::class, 'index'])->name('absensi.index');
+Route::get('/absensi/create', [AbsensiKaryawanController::class, 'create'])->name('absensi.create');
+Route::post('/absensi', [AbsensiKaryawanController::class, 'store'])->name('absensi.store');
+Route::get('/absensi/{id}/edit', [AbsensiKaryawanController::class, 'edit'])->name('absensi.edit');
+Route::put('/absensi/{id}', [AbsensiKaryawanController::class, 'update'])->name('absensi.update');
+Route::delete('/absensi/{id}', [AbsensiKaryawanController::class, 'destroy'])->name('absensi.destroy');
+
+// Route CRUD untuk Paket
+Route::get('/paket', [PaketController::class, 'index'])->name('paket.index');
+Route::get('/paket/create', [PaketController::class, 'create'])->name('paket.create');
+Route::post('/paket', [PaketController::class, 'store'])->name('paket.store');
+Route::get('/paket/{id}/edit', [PaketController::class, 'edit'])->name('paket.edit');
+Route::put('/paket/{id}', [PaketController::class, 'update'])->name('paket.update');
+Route::delete('/paket/{id}', [PaketController::class, 'destroy'])->name('paket.destroy');
+
+// ROUTE CROUD UNTUK AKTIVITAS KARYAWAN HARIAN
+Route::get('/aktivitas', [AktivitasKaryawanController::class, 'index'])->name('aktivitas.index');
+Route::get('/aktivitas/tambah', [AktivitasKaryawanController::class, 'create'])->name('aktivitas.create');
+Route::post('/aktivitas', [AktivitasKaryawanController::class, 'store'])->name('aktivitas.store');
+Route::get('/aktivitas/{id}/edit', [AktivitasKaryawanController::class, 'edit'])->name('aktivitas.edit');
+Route::put('/aktivitas/{id}', [AktivitasKaryawanController::class, 'update'])->name('aktivitas.update');
+Route::delete('/aktivitas/{id}', [AktivitasKaryawanController::class, 'destroy'])->name('aktivitas.destroy');
+
+// ROUTE BOKING
+Route::get('/boking', [BokingControllers::class, 'index'])->name('boking.index');
+Route::get('/boking/selesai', [BokingControllers::class, 'selesai'])->name('boking.selesai');
+
+// ROUTE LAPORAN
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/inventory', [LaporanController::class, 'selesai'])->name('laporan.inventory');
+
+// ROUTE PROFIL
+Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+
+// ROUTE AKTIVITAS MINGGUAN
+Route::get('/mingguan', [MingguanController::class, 'index'])->name('mingguan.index');
+// ROUTE AKTIVITAS MINGGUAN
+Route::get('/bulanan', [BulananController::class, 'index'])->name('bulanan.index');
+
+/////////////////////////////////////////////
+
+
+
+Route::get('/berandaevent', function () {
+    return view('event.berandaevent'); 
 });
+
+// Route::get('/aktivitasmingguan', function () {
+//     return view('aktivitas.karyawan1');
+// });
+
+// Route::get('/aktivitas/tambahmingguan', function () {
+//     return view('aktivitas.tambah1');
+// });
+
+// Route::get('/aktivitas/editmingguan', function () {
+//     return view('aktivitas.editmingguan');
+// });
+
+// Route::get('/aktivitasbulanan', function () {
+//     return view('aktivitas.karyawan2');
+// });
+
+// Route::get('/aktivitas/tambahbulanan', function () {
+//     return view('aktivitas.tambah2');
+// });
+
+// // Route GET untuk menampilkan halaman edit
+// Route::get('/aktivitas/editbulanan', function () {
+//     return view('aktivitas.editbulanan'); // pastikan file ini ada
+// })->name('aktivitas.editbulanan');
+
+// Route::get('/beranda', function () {
+//     return view('beranda.beranda');
+// });
+
+// Route::get('/beranda', function () {
+//     return 'Selamat datang, Pelanggan!';
+// })->name('beranda.beranda');
+
+Route::get('/boking', [BokingControllers::class, 'index'])->name('boking.index');
+
+
+Route::get('/berandaboking', function () {
+    return view('daftarboking.berandaboking');
+});
+
+Route::get('/daftarboking', function () {
+    return view('boking.boking');
+});
+
+Route::get('/riwayatboking', function () {
+    return view('boking.riwayatboking');
+});
+
+Route::get('/detailboking', function () {
+    return view('boking.detailboking');
+});
+
+Route::get('/bokingselesai', function () {
+    return view('boking.bokingselesai');
+});
+
+Route::get('/tambahlaporan', function () {
+    return view('laporan.tambahlaporan');
+});
+
+Route::get('/editlaporan', function () {
+    return view('laporan.editlaporan');
+});
+
+Route::get('/berandaprofil', function () {
+    return view('profil.berandaprofil');
+});
+
+
+Route::get('/kritik', function () {
+    return view('kritik.kritikdansaran');
+});
+
+Route::get('/laporaninventory', function () {
+    return view('inventory.laporaninventory');
+});
+
+Route::get('/tambahinventory', function () {
+    return view('inventory.tambahinventory');
+});
+
+Route::get('/editinventory', function () {
+    return view('inventory.editinventory');
+});
+
+
+// Route::get('/berandakaryawan', function () {
+//     return view('berandakaryawan.karyawan');
+// });
+
+// // Simulasi route setelah login:
+// Route::get('/berandakaryawan', function () {
+//     return 'Selamat datang, Karyawan!';
+// })->name('berandakaryawan.karyawan');
+
+// Route::get('/absensi', function () {
+//     return view('berandakaryawan.absensi');
+// });
+
+// Route::get('/absentambah', function () {
+//     return view('berandakaryawan.absentambah');
+// });
+
+
+// Route::get('/absenedit', function () {
+//     return view('berandakaryawan.absenedit');
+// });
+
+// Route::get('/daftarpromo', function () {
+//     return view('promo.daftarpromo');
+// });
+
+// Route::get('/promoedit', function () {
+//     return view('promo.promoedit');
+// });
+
+// Route::get('/berandapromo', function () {
+//     return view('promo.promo');
+// });
+
+// Route::get('/promotambah', function () {
+//     return view('promo.promotambah');
+// });
+
+// use App\Http\Controllers\EventController;
+
+// Route::get('/event/tambah', [EventController::class, 'create'])->name('event.create');
+// Route::post('/event/simpan', [EventController::class, 'store'])->name('event.store');
+
+
+
