@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Pastikan layouts.app sudah tersedia --}}
+@extends('layouts.app')
 
 @section('title', 'Laporan Inventory Barang')
 
@@ -7,24 +7,21 @@
   <h1 class="text-2xl font-bold">Laporan</h1>
 </div>
 
-<!-- Card -->
 <div class="bg-white shadow rounded-lg p-6">
-  <h2 class="text-lg font-semibold mb-4">Laporan Inventory Barang</h2>
-
-  <!-- Filter Tanggal -->
-  <div class="flex items-center space-x-2 mb-4">
-    <input type="date" class="border rounded p-2" />
-    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-      <i class="fas fa-search"></i>
-    </button>
-    <a href="{{ url('/tambahlaporan') }}" 
-       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ml-auto">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-lg font-semibold">Laporan Booking Inventory</h2>
+    <a href="{{ route('inventory.create') }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
       + Tambah
     </a>
-    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-      <i class="fas fa-download"></i> Unduh
-    </button>
   </div>
+
+  <!-- Filter Tanggal -->
+  <form method="GET" action="{{ route('inventory.index') }}" class="flex items-center space-x-2 mb-4">
+    <input type="date" name="filter_tanggal" value="{{ request('filter_tanggal') }}" class="border rounded p-2" />
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
 
   <!-- Tabel -->
   <div class="overflow-x-auto">
@@ -46,61 +43,41 @@
         </tr>
       </thead>
       <tbody class="text-center">
+        @forelse($data as $index => $item)
         <tr class="odd:bg-white even:bg-gray-100">
-          <td class="border px-4 py-2">1</td>
-          <td class="border px-4 py-2">01</td>
-          <td class="border px-4 py-2">28/05/2024</td>
-          <td class="border px-4 py-2">ATL-112-UB</td>
-          <td class="border px-4 py-2">Alat</td>
-          <td class="border px-4 py-2">Lulur Premium</td>
-          <td class="border px-4 py-2">5 kg</td>
-          <td class="border px-4 py-2">2</td>
-          <td class="border px-4 py-2">2</td>
-          <td class="border px-4 py-2">1</td>
-          <td class="border px-4 py-2">Rp72.000</td>
+          <td class="border px-4 py-2">{{ $index + 1 }}</td>
+          <td class="border px-4 py-2">{{ $item->id }}</td>
+          <td class="border px-4 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d/m/Y') }}</td>
+          <td class="border px-4 py-2">{{ $item->kode_barang }}</td>
+          <td class="border px-4 py-2">{{ $item->tipe }}</td>
+          <td class="border px-4 py-2">{{ $item->nama_produk }}</td>
+          <td class="border px-4 py-2">{{ $item->berat_satuan ?? '-' }}</td>
+          <td class="border px-4 py-2">{{ $item->jumlah_masuk }}</td>
+          <td class="border px-4 py-2">{{ $item->jumlah_final }}</td>
+          <td class="border px-4 py-2">{{ $item->stok }}</td>
+          <td class="border px-4 py-2">Rp{{ number_format($item->harga_perolehan, 0, ',', '.') }}</td>
           <td class="px-4 py-2">
             <div class="flex justify-center space-x-2">
-              <a href="{{ url('/editlaporan') }}" class="text-blue-600 hover:text-blue-800">
+              <a href="{{ route('inventory.edit', $item->id) }}" class="text-blue-600 hover:text-blue-800">
                 <i class="fas fa-pen"></i>
               </a>
-              <button onclick="openConfirm()" class="text-red-600 hover:text-red-800">
-                <i class="fas fa-trash"></i>
-              </button>
+              <form action="{{ route('inventory.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                @csrf
+                @method('DELETE')
+                <button class="text-red-600 hover:text-red-800" type="submit">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
             </div>
           </td>
         </tr>
+        @empty
+        <tr>
+          <td colspan="12" class="py-4 text-gray-500">Tidak ada data inventory</td>
+        </tr>
+        @endforelse
       </tbody>
     </table>
   </div>
 </div>
-
-<!-- Modal Konfirmasi Hapus -->
-<div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white rounded-lg shadow-lg p-6 text-center w-80">
-    <div class="text-5xl text-black mb-4">
-      <i class="fas fa-exclamation-circle"></i>
-    </div>
-    <h2 class="text-xl font-bold mb-2">Lanjutkan Hapus?</h2>
-    <p class="text-gray-600 mb-4">Anda akan menghapus laporan inventory</p>
-    <div class="flex justify-center gap-4">
-      <button onclick="confirmDelete()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Ok</button>
-      <button onclick="closeConfirm()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Batal</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  function openConfirm() {
-    document.getElementById('confirmModal').classList.remove('hidden');
-  }
-
-  function closeConfirm() {
-    document.getElementById('confirmModal').classList.add('hidden');
-  }
-
-  function confirmDelete() {
-    alert("Inventory berhasil dihapus.");
-    closeConfirm();
-  }
-</script>
 @endsection

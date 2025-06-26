@@ -14,6 +14,7 @@ use App\Http\Controllers\AktivitasMingguanController;
 use App\Http\Controllers\AktivitasBulananController;
 use App\Http\Controllers\BookingSelesaiController;
 use App\Http\Controllers\BookingTreatmentController;
+use App\Http\Controllers\InventoryController;
 
 // Login & Logout
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -40,7 +41,6 @@ Route::post('/event', [EventKegiatanController::class, 'store'])->name('event.st
 Route::get('/event/edit/{id}', [EventKegiatanController::class, 'edit'])->name('event.edit');
 Route::put('/event/update/{id}', [EventKegiatanController::class, 'update'])->name('event.update');
 Route::delete('/event/hapus/{id}', [EventKegiatanController::class, 'destroy'])->name('event.hapus');
-
 
 // Untuk semua fitur CRUD Absensi Karyawan
 Route::get('/absensi', [AbsensiKaryawanController::class, 'index'])->name('absensi.index');
@@ -93,6 +93,17 @@ Route::post('/laporan', [LaporanController::class, 'store'])->name('laporan.stor
 Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('laporan.edit');
 Route::put('/laporan/{id}', [LaporanController::class, 'update'])->name('laporan.update');
 Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
+
+// ROUTE LAPORAN INVENTORY
+Route::prefix('inventory')->name('inventory.')->group(function () {
+    Route::get('/', [InventoryController::class, 'index'])->name('index');
+    Route::get('/create', [InventoryController::class, 'create'])->name('create');
+    Route::post('/', [InventoryController::class, 'store'])->name('store');
+    Route::get('/{inventory}', [InventoryController::class, 'show'])->name('show');
+    Route::get('/{inventory}/edit', [InventoryController::class, 'edit'])->name('edit');
+    Route::put('/{inventory}', [InventoryController::class, 'update'])->name('update');
+    Route::delete('/{inventory}', [InventoryController::class, 'destroy'])->name('destroy');
+});
 
 // ROUTE PROFIL
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');

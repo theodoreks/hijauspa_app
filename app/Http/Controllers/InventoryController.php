@@ -7,15 +7,23 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Inventory::all();
-        return view('inventory.index', compact('data'));
+        $query = Inventory::query();
+
+        if ($request->filled('filter_tanggal')) {
+            $query->whereDate('tanggal', $request->filter_tanggal);
+        }
+
+        $data = $query->get();
+
+        return view('inventory.laporaninventory', compact('data'));
     }
+
 
     public function create()
     {
-        return view('inventory.create');
+        return view('inventory.tambahinventory');
     }
 
     public function store(Request $request)
@@ -45,7 +53,7 @@ class InventoryController extends Controller
 
     public function edit(Inventory $inventory)
     {
-        return view('inventory.edit', compact('inventory'));
+        return view('inventory.editinventory', compact('inventory'));
     }
 
     public function update(Request $request, Inventory $inventory)
