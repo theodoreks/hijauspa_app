@@ -10,8 +10,8 @@
 </div>
 
 <div class="bg-white p-6 rounded-lg shadow">
-    <p>Selamat Datang, <strong>{{ Auth::user()->name ?? 'Nama Karyawan' }}</strong></p>
-    <p>Anda login sebagai <strong>Karyawan</strong>.</p>
+    <p>Selamat Datang, <strong>{{ Auth::user()->nama_lengkap ?? 'Nama Karyawan' }}</strong></p>
+    <p>Anda login sebagai <strong>{{ ucfirst(Auth::user()->role ?? 'karyawan') }}</strong>.</p>
 </div>
 
 <!-- Card Absen -->

@@ -107,6 +107,7 @@ Route::prefix('inventory')->name('inventory.')->group(function () {
 
 // ROUTE PROFIL
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
 
 // ROUTE BOOKINGTREATMENT
 Route::get('/boking', [BookingTreatmentController::class, 'index'])->name('boking.index');
