@@ -56,7 +56,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('laporan.inventory') }}" class="flex items-center hover:text-lime-500">
+            <a href="#" class="flex items-center hover:text-lime-500">
               <i class="fas fa-boxes mr-2"></i> Inventory Barang
             </a>
           </li>

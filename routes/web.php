@@ -6,13 +6,14 @@ use App\Http\Controllers\EventKegiatanController;
 use App\Http\Controllers\AbsensiKaryawanController;
 use App\Http\Controllers\AktivitasKaryawanController;
 use App\Http\Controllers\PaketController;
-use App\Http\Controllers\BokingControllers;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\MingguanController;
 use App\Http\Controllers\BulananController;
 use App\Http\Controllers\AktivitasMingguanController;
 use App\Http\Controllers\AktivitasBulananController;
+use App\Http\Controllers\BookingSelesaiController;
+use App\Http\Controllers\BookingTreatmentController;
 
 // Login & Logout
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -85,61 +86,28 @@ Route::prefix('aktivitas')->group(function () {
     Route::delete('/bulanan/{id}', [AktivitasBulananController::class, 'destroy'])->name('aktivitas.bulanan.destroy');
 });
 
-
-// ROUTE BOKING
-Route::get('/boking', [BokingControllers::class, 'index'])->name('boking.index');
-Route::get('/boking/selesai', [BokingControllers::class, 'selesai'])->name('boking.selesai');
-
 // ROUTE LAPORAN
 Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-Route::get('/inventory', [LaporanController::class, 'selesai'])->name('laporan.inventory');
+Route::get('/laporan/create', [LaporanController::class, 'create'])->name('laporan.create');
+Route::post('/laporan', [LaporanController::class, 'store'])->name('laporan.store');
+Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('laporan.edit');
+Route::put('/laporan/{id}', [LaporanController::class, 'update'])->name('laporan.update');
+Route::delete('/laporan/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
 
 // ROUTE PROFIL
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
 
+// ROUTE BOOKINGTREATMENT
+Route::get('/boking', [BookingTreatmentController::class, 'index'])->name('boking.index');
+Route::get('/boking/{id}', [BookingTreatmentController::class, 'show'])->name('boking.detail');
+Route::get('/booking/selesai', [BookingSelesaiController::class, 'selesai'])->name('boking.selesai');
+Route::get('/booking/{id}/detail', [BookingTreatmentController::class, 'show'])->name('boking.detail');
+
 /////////////////////////////////////////////
-
-
 
 Route::get('/berandaevent', function () {
     return view('event.berandaevent'); 
 });
-
-// Route::get('/aktivitasmingguan', function () {
-//     return view('aktivitas.karyawan1');
-// });
-
-// Route::get('/aktivitas/tambahmingguan', function () {
-//     return view('aktivitas.tambah1');
-// });
-
-// Route::get('/aktivitas/editmingguan', function () {
-//     return view('aktivitas.editmingguan');
-// });
-
-// Route::get('/aktivitasbulanan', function () {
-//     return view('aktivitas.karyawan2');
-// });
-
-// Route::get('/aktivitas/tambahbulanan', function () {
-//     return view('aktivitas.tambah2');
-// });
-
-// // Route GET untuk menampilkan halaman edit
-// Route::get('/aktivitas/editbulanan', function () {
-//     return view('aktivitas.editbulanan'); // pastikan file ini ada
-// })->name('aktivitas.editbulanan');
-
-// Route::get('/beranda', function () {
-//     return view('beranda.beranda');
-// });
-
-// Route::get('/beranda', function () {
-//     return 'Selamat datang, Pelanggan!';
-// })->name('beranda.beranda');
-
-Route::get('/boking', [BokingControllers::class, 'index'])->name('boking.index');
-
 
 Route::get('/berandaboking', function () {
     return view('daftarboking.berandaboking');
@@ -157,10 +125,6 @@ Route::get('/detailboking', function () {
     return view('boking.detailboking');
 });
 
-Route::get('/bokingselesai', function () {
-    return view('boking.bokingselesai');
-});
-
 Route::get('/tambahlaporan', function () {
     return view('laporan.tambahlaporan');
 });
@@ -172,7 +136,6 @@ Route::get('/editlaporan', function () {
 Route::get('/berandaprofil', function () {
     return view('profil.berandaprofil');
 });
-
 
 Route::get('/kritik', function () {
     return view('kritik.kritikdansaran');
@@ -189,50 +152,3 @@ Route::get('/tambahinventory', function () {
 Route::get('/editinventory', function () {
     return view('inventory.editinventory');
 });
-
-
-// Route::get('/berandakaryawan', function () {
-//     return view('berandakaryawan.karyawan');
-// });
-
-// // Simulasi route setelah login:
-// Route::get('/berandakaryawan', function () {
-//     return 'Selamat datang, Karyawan!';
-// })->name('berandakaryawan.karyawan');
-
-// Route::get('/absensi', function () {
-//     return view('berandakaryawan.absensi');
-// });
-
-// Route::get('/absentambah', function () {
-//     return view('berandakaryawan.absentambah');
-// });
-
-
-// Route::get('/absenedit', function () {
-//     return view('berandakaryawan.absenedit');
-// });
-
-// Route::get('/daftarpromo', function () {
-//     return view('promo.daftarpromo');
-// });
-
-// Route::get('/promoedit', function () {
-//     return view('promo.promoedit');
-// });
-
-// Route::get('/berandapromo', function () {
-//     return view('promo.promo');
-// });
-
-// Route::get('/promotambah', function () {
-//     return view('promo.promotambah');
-// });
-
-// use App\Http\Controllers\EventController;
-
-// Route::get('/event/tambah', [EventController::class, 'create'])->name('event.create');
-// Route::post('/event/simpan', [EventController::class, 'store'])->name('event.store');
-
-
-

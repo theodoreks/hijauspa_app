@@ -17,37 +17,25 @@
             <th class="px-4 py-2 font-semibold">Nama Konsumen</th>
             <th class="px-4 py-2 font-semibold">Tanggal Booking</th>
             <th class="px-4 py-2 font-semibold">Tanggal Treatment</th>
-            <th class="px-4 py-2 font-semibold">Option</th>
+            <th class="px-4 py-2 font-semibold text-center">Option</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-t">
-            <td class="px-4 py-2">1</td>
-            <td class="px-4 py-2">Amanda</td>
-            <td class="px-4 py-2">07 April 2025 | 14:45 WIB</td>
-            <td class="px-4 py-2">08 April 2025 | 15:00 WIB</td>
-            <td class="px-4 py-2">
-              <a href="#" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">👁️</a>
+          @foreach ($data as $index => $item)
+          <tr class="{{ $index % 2 == 0 ? 'bg-white' : 'bg-gray-100' }} border-t">
+            <td class="px-4 py-2">{{ $index + 1 }}</td>
+            <td class="px-4 py-2">{{ $item->nama_konsumen }}</td>
+            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y | H:i') }} WIB</td>
+            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($item->jadwal_treatment)->format('d M Y | H:i') }} WIB</td>
+            <td class="px-4 py-2 text-center">
+              <a href="{{ route('boking.detail', $item->id) }}"
+                 class="inline-flex items-center justify-center bg-gray-100 text-blue-600 w-10 h-8 rounded hover:bg-blue-100 transition duration-200"
+                 title="Lihat Detail">
+                <i class="fas fa-eye text-base"></i>
+              </a>
             </td>
           </tr>
-          <tr class="bg-gray-100 border-t">
-            <td class="px-4 py-2">2</td>
-            <td class="px-4 py-2">Clara</td>
-            <td class="px-4 py-2">10 April 2025 | 11:00 WIB</td>
-            <td class="px-4 py-2">11 April 2025 | 15:45 WIB</td>
-            <td class="px-4 py-2">
-              <a href="#" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">👁️</a>
-            </td>
-          </tr>
-          <tr class="bg-white border-t">
-            <td class="px-4 py-2">3</td>
-            <td class="px-4 py-2">Farisa</td>
-            <td class="px-4 py-2">18 April 2025 | 11:00 WIB</td>
-            <td class="px-4 py-2">20 April 2025 | 11:45 WIB</td>
-            <td class="px-4 py-2">
-              <a href="#" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">👁️</a>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
