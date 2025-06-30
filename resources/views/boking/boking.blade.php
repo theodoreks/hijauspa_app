@@ -8,8 +8,8 @@
 </div>
 
 <div class="bg-white p-6 rounded-lg shadow">
-    <h2 class="text-lg font-semibold mb-4">
-        <i class="fas fa-calendar-check mr-2"></i> Daftar Booking Masuk
+    <h2 class="text-lg font-medium mb-4">
+        <i class=""></i> Daftar Booking Masuk
     </h2>
     <table class="min-w-full table-auto border border-gray-300 text-sm">
         <thead class="bg-gray-100">
@@ -18,7 +18,7 @@
                 <th class="border px-4 py-2">ID Booking</th>
                 <th class="border px-4 py-2">Nama Konsumen</th>
                 <th class="border px-4 py-2">Jadwal Treatment</th>
-                <th class="border px-4 py-2">Foto Paket</th>
+                <th class="border px-4 py-2">Foto </th>
                 <th class="border px-4 py-2">Opsi</th>
             </tr>
         </thead>

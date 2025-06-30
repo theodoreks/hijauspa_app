@@ -3,10 +3,11 @@
 @section('title', 'Edit Absen Karyawan')
 
 @section('content')
-<h2 class="text-xl font-bold mb-6"><i class="fas fa-user-check mr-2"></i> Edit Absen Karyawan</h2>
+<h2 class="text-xl font-bold mb-6"><i class=""></i> Absen Karyawan</h2>
 
 <div class="bg-white p-8 rounded shadow w-full max-w-full">
-    <h3 class="text-md font-semibold mb-6">Form Edit Absen</h3>
+  <h3 class="text-md mb-6">Edit Absen</h3>
+
 
     <form action="{{ route('absensi.update', $absen->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6 w-full">
         @csrf
@@ -84,7 +85,7 @@
             <a
                 href="{{ route('absensi.index') }}"
                 class="bg-gray-400 text-white px-6 py-3 rounded-md hover:bg-gray-500 focus:ring-2 focus:ring-gray-500">
-                Batal
+                Kembali
             </a>
         </div>
     </form>

@@ -3,10 +3,13 @@
 @section('title', 'Edit Inventory')
 
 @section('content')
-<main class="p-6">
-    <h2 class="text-xl font-bold mb-6">Edit Inventory</h2>
+<h2 class="text-xl font-bold mb-6"><i class=""></i> Laporan</h2>
 
-    <div class="bg-white p-8 rounded shadow w-full max-w-4xl mx-auto">
+
+   <div class="bg-white p-8 rounded shadow w-full">
+  <h3 class="text-md font-medium mb-4">
+    <i class=""></i>Edit Inventory Barang
+  </h3>
         <form action="{{ route('inventory.update', $inventory->id) }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             @csrf
             @method('PUT')
@@ -76,7 +79,7 @@
                     Simpan
                 </button>
                 <a href="{{ route('inventory.index') }}" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">
-                    Batal
+                    Kembali
                 </a>
             </div>
         </form>

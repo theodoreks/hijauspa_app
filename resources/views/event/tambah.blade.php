@@ -6,8 +6,8 @@
 <h2 class="text-xl font-bold mb-6">Event dan Kolaborasi</h2>
 
 <div class="bg-white p-8 rounded shadow w-full">
-    <h3 class="text-md font-semibold mb-4">
-        <i class="fas fa-calendar-plus mr-2"></i>Tambah Event dan Kolaborasi
+    <h3 class="text-md font-medium mb-4">
+        <i class=""></i>Tambah Event dan Kolaborasi
     </h3>
 
     <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">

@@ -8,9 +8,10 @@
 </div>
 
 <div class="bg-white shadow rounded-lg p-6">
+  <!-- Header -->
   <div class="flex justify-between items-center mb-4">
-    <h2 class="text-lg font-semibold">Laporan Booking Inventory</h2>
-    <a href="{{ route('inventory.create') }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+    <h2 class="text-lg font-medium">Laporan Booking Inventory</h2>
+    <a href="{{ route('inventory.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
       + Tambah
     </a>
   </div>
@@ -23,7 +24,7 @@
     </button>
   </form>
 
-  <!-- Tabel -->
+  <!-- Tabel Data -->
   <div class="overflow-x-auto">
     <table class="min-w-full border text-sm text-left">
       <thead class="bg-gray-200 text-center">
@@ -35,16 +36,16 @@
           <th class="border px-4 py-2">Tipe</th>
           <th class="border px-4 py-2">Nama Produk</th>
           <th class="border px-4 py-2">Berat/Satuan</th>
-          <th class="border px-4 py-2">Jumlah Masuk</th>
-          <th class="border px-4 py-2">Jumlah Final</th>
+          <th class="border px-4 py-2">Masuk</th>
+          <th class="border px-4 py-2">Final</th>
           <th class="border px-4 py-2">Stok</th>
-          <th class="border px-4 py-2">Harga Perolehan</th>
+          <th class="border px-4 py-2">Harga</th>
           <th class="border px-4 py-2">Opsi</th>
         </tr>
       </thead>
       <tbody class="text-center">
         @forelse($data as $index => $item)
-        <tr class="odd:bg-white even:bg-gray-100">
+        <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-gray-100' }}">
           <td class="border px-4 py-2">{{ $index + 1 }}</td>
           <td class="border px-4 py-2">{{ $item->id }}</td>
           <td class="border px-4 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d/m/Y') }}</td>
@@ -56,16 +57,16 @@
           <td class="border px-4 py-2">{{ $item->jumlah_final }}</td>
           <td class="border px-4 py-2">{{ $item->stok }}</td>
           <td class="border px-4 py-2">Rp{{ number_format($item->harga_perolehan, 0, ',', '.') }}</td>
-          <td class="px-4 py-2">
+          <td class="border px-4 py-2">
             <div class="flex justify-center space-x-2">
-              <a href="{{ route('inventory.edit', $item->id) }}" class="text-blue-600 hover:text-blue-800">
-                <i class="fas fa-pen"></i>
+              <a href="{{ route('inventory.edit', $item->id) }}" class="bg-green-600 hover:bg-green-700 text-white p-1.5 rounded shadow text-xs">
+                <i class="fas fa-edit"></i>
               </a>
               <form action="{{ route('inventory.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                 @csrf
                 @method('DELETE')
-                <button class="text-red-600 hover:text-red-800" type="submit">
-                  <i class="fas fa-trash"></i>
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-1.5 rounded shadow text-xs">
+                  <i class="fas fa-trash-alt"></i>
                 </button>
               </form>
             </div>

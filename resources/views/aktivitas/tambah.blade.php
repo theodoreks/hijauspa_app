@@ -5,13 +5,13 @@
 @section('content')
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-xl font-semibold">
-            <i class="fas fa-calendar-day mr-2"></i> Aktivitas Diri Karyawan - Harian
+            <i class=""></i> Aktivitas Diri Karyawan 
         </h1>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-lg font-semibold mb-4">
-            <i class="fas fa-plus mr-2"></i> Tambah Aktivitas Harian
+        <h2 class="text-lg font-medium mb-4">
+            <i class=""></i> Tambah Aktivitas Harian
         </h2>
 
         <form action="{{ route('aktivitas.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">

@@ -23,9 +23,9 @@
     </div>
 </div>
 
-<!-- Gambar dari Paket -->
+<!-- Gambar -->
 <div class="bg-white p-4 rounded shadow mb-4 text-sm">
-    <p class="mb-2"><strong>Foto Paket:</strong></p>
+    <p class="mb-2"><strong>Foto:</strong></p>
     @if ($paket->foto)
         <img src="{{ asset('storage/' . $paket->foto) }}" class="w-32 h-32 object-cover rounded">
     @else

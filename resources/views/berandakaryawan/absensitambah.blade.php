@@ -3,10 +3,10 @@
 @section('title', 'Tambah Absen Karyawan')
 
 @section('content')
-<h2 class="text-xl font-bold mb-6"><i class="fas fa-user-check mr-2"></i> Tambah Absen Karyawan</h2>
+<h2 class="text-xl font-bold mb-6"><i class=></i> Absen Karyawan</h2>
 
 <div class="bg-white p-8 rounded shadow w-full max-w-full">
-    <h3 class="text-md font-semibold mb-6">Form Tambah Absen</h3>
+    <h3 class="text-md font-medium mb-6">Tambah Absen</h3>
 
     <form action="{{ route('absensi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6 w-full">
         @csrf

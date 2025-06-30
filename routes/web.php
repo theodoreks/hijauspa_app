@@ -15,6 +15,7 @@ use App\Http\Controllers\AktivitasBulananController;
 use App\Http\Controllers\BookingSelesaiController;
 use App\Http\Controllers\BookingTreatmentController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\BerandaKaryawanController;
 
 // Login & Logout
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -30,9 +31,8 @@ Route::get('/beranda', function () {
     return view('beranda.beranda'); // Ganti dengan view yang sesuai
 })->name('beranda.beranda');
 
-Route::get('/berandakaryawan', function () {
-    return view('berandakaryawan.karyawan'); // Ganti dengan view yang sesuai
-})->name('berandakaryawan.karyawan');
+Route::get('/berandakaryawan', [BerandaKaryawanController::class, 'index'])
+    ->name('berandakaryawan.karyawan');
 
 // Untuk semua fitur CRUD Event Kegiatan
 Route::get('/event', [EventKegiatanController::class, 'index'])->name('event.index');

@@ -3,9 +3,11 @@
 @section('title', 'Tambah Inventory')
 
 @section('content')
+<h2 class="text-xl font-bold mb-6"><i class=""></i> Laporan</h2>
+
 <div class="bg-white p-8 rounded shadow w-full">
-  <h3 class="text-md font-semibold mb-4">
-    <i class="fas fa-boxes mr-2"></i>Tambah Inventory Barang
+  <h3 class="text-md font-medium mb-4">
+    <i class=""></i>Tambah Inventory Barang
   </h3>
 
   <form action="{{ route('inventory.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">

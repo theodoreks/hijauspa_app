@@ -52,7 +52,7 @@
         <ul x-show="laporanOpen" x-transition class="ml-6 mt-2 space-y-2 text-gray-600">
           <li>
             <a href="{{ route('laporan.index') }}" class="flex items-center hover:text-lime-500">
-              <i class="fas fa-money-bill-wave mr-2"></i> Keuangan
+              <i class="fas fa-money-bill-wave mr-2"></i> Booking
             </a>
           </li>
           <li>
