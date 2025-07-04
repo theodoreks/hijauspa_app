@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\customer;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 
@@ -10,7 +11,7 @@ class BookingController extends Controller
     // Tampilkan form input booking
     public function create()
     {
-        return view('booking');
+        return view('customer.booking');
     }
 
     // Simpan data booking ke database

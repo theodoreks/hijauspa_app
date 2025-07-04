@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\customer;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kritik;
 
@@ -10,7 +11,7 @@ class KritikController extends Controller
     public function index()
     {
         $feedbacks = Kritik::orderBy('id', 'desc')->get();
-        return view('kritik', compact('feedbacks'));
+        return view('customer.kritik', compact('feedbacks'));
     }
 
     public function store(Request $request)

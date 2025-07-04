@@ -9,54 +9,64 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    /**
+     * Menampilkan form login.
+     */
     public function loginForm()
     {
-        return view('login.login');
+        return view('login.login'); // Pastikan view ada di resources/views/auth/login.blade.php
     }
 
+    /**
+     * Menangani proses login.
+     */
     public function login(Request $request)
     {
+        // 1. Validasi input
         $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
+        // 2. Cari user berdasarkan username
         $user = User::where('username', $credentials['username'])->first();
 
+        // 3. Jika user tidak ada atau password salah, kembalikan dengan error
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return back()->withErrors(['username' => 'Username atau password salah.'])->withInput();
         }
 
+        // 4. Jika berhasil, login kan user
         Auth::login($user);
+        $request->session()->regenerate();
 
+        // 5. Arahkan berdasarkan role menggunakan nama rute dari web.php
         return match ($user->role) {
-            'karyawan'  => redirect()->route('berandakaryawan.karyawan'),
-            'pelanggan' => redirect()->route('beranda.beranda'),
-            default     => redirect()->route('login')->withErrors(['username' => 'Peran tidak dikenali.']),
+            'owner'     => redirect()->intended(route('owner.dashboard')),
+            'karyawan'  => redirect()->intended(route('karyawan.dashboard')),
+            'pelanggan' => redirect()->intended(route('customer.beranda')),
+            default     => redirect('/login')->withErrors(['username' => 'Role tidak dikenali.']),
         };
     }
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
-    }
-
+    /**
+     * Menampilkan form registrasi.
+     */
     public function registerForm()
     {
-        return view('login.register');
+        return view('login.register'); // Pastikan view ada di resources/views/auth/register.blade.php
     }
 
+    /**
+     * Menangani proses registrasi user baru (pelanggan).
+     */
     public function register(Request $request)
     {
-        // Debug: pastikan semua field dikirim
-        // dd($request->all());
-
         $request->validate([
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'no_hp' => 'required|string|max:20',
-            'username' => 'required|string|unique:users,username',
+            'username' => 'required|string|unique:users,username|max:50',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -66,10 +76,25 @@ class AuthController extends Controller
             'no_hp' => $request->no_hp,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'role' => 'pelanggan'
+            'role' => 'pelanggan', // Registrasi default sebagai pelanggan
         ]);
 
+        // Login user yang baru terdaftar
         Auth::login($user);
-        return redirect()->route('beranda.beranda');
+
+        // Arahkan ke halaman beranda customer
+        return redirect()->route('customer.beranda');
+    }
+
+    /**
+     * Menangani proses logout.
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

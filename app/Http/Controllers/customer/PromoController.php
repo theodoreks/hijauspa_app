@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\customer;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Promo; 
 
@@ -10,6 +11,6 @@ class PromoController extends Controller
     public function promo()
     {
         $promo = Promo::all(); 
-        return view('promo', compact('promo')); 
+        return view('customer.promo', compact('promo')); 
     }
 }
